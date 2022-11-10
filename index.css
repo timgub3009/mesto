@@ -162,6 +162,10 @@
   align-self: flex-end;
 }
 
+.profile__edit-button:hover {
+  opacity: 0.6;
+}
+
 @media screen and (max-width: 799px) {
   .profile__edit-button {
     min-width: 18px;
@@ -181,6 +185,10 @@
   min-height: 50px;
   padding: 0;
   margin-left: auto;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 999px) {
@@ -273,6 +281,14 @@
   margin-left: 20px;
 }
 
+.elements__like-button:hover {
+  opacity: 0.5;
+}
+
+.elements__like-button:active {
+  background-image: url(./images/black\ heart.svg);
+}
+
 .footer {
   max-width: 880px;
   margin: 0 auto 60px;
@@ -332,6 +348,10 @@
   background-color: transparent;
 }
 
+.popup__close-button:hover {
+  opacity: 0.6;
+}
+
 .popup__title {
   font-weight: 900;
   font-size: 24px;
@@ -368,4 +388,12 @@
   line-height: 1.2;
   border: none;
   width: 100%;
+}
+
+.popup__submit-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.popup_is-on {
+  display: flex;
 }
