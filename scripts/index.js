@@ -2,16 +2,26 @@ const popupElement = document.querySelector('.popup');
 const popupCloseBtnElement = popupElement.querySelector('.popup__close-button');
 const popupOpenBtnElement = document.querySelector('.profile__edit-button');
 
-const openPopup = function (evt) {
+const openPopup = function () {
   popupElement.classList.add('popup_opened');
 }
 
-const closePopup = function () {
+const closePopup = function (event) {
   popupElement.classList.remove('popup_opened');
 }
 
 popupCloseBtnElement.addEventListener('click', closePopup);
 popupOpenBtnElement.addEventListener('click', openPopup);
+
+const closePopupByClickOnOverlay = function(event) {
+  if (event.target !== event.currentTarget) {
+    return;
+  } else {
+    closePopup();
+  }
+}
+
+popupElement.addEventListener('click', closePopupByClickOnOverlay);
 
 let formElement = popupElement.querySelector('.popup__form');
 let nameInput = popupElement.querySelector('.popup__input_name_type');
