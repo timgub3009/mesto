@@ -3,10 +3,16 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 0;
+  bottom: 20px;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
   display: none;
+}
+
+@media screen and (max-width: 499px) {
+  .popup {
+    top: 30px;
+  }
 }

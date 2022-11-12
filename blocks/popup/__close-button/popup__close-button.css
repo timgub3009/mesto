@@ -2,8 +2,8 @@
   position: absolute;
   min-height: 32px;
   min-width: 32px;
-  left: 100%;
-  bottom: 100%;
+  left: 102%;
+  bottom: 103%;
   padding: 0;
   border: none;
   background-image: url(../../../images/krestik.svg);
@@ -22,5 +22,7 @@
   .popup__close-button {
     min-height: 20px;
     min-width: 20px;
+    left: 93%;
+    bottom: 105%;
   }
 }
