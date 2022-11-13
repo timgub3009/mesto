@@ -30,7 +30,7 @@ function formSubmitHandler(evt) {
   closePopup();
 }
 
-formElement.addEventListener('submit', formSubmitHandler);
 popupCloseBtnElement.addEventListener('click', closePopup);
 popupOpenBtnElement.addEventListener('click', openPopup);
 popupElement.addEventListener('click', closePopupByClickOnOverlay);
+formElement.addEventListener('submit', formSubmitHandler);
