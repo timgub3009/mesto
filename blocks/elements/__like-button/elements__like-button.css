@@ -17,7 +17,7 @@
 }
 
 .elements__like-button:active {
-  background-image: url(../../../images/black\ heart.svg);
+  background-image: url(../../../images/black-heart.svg);
   opacity: 1;
 }
 
