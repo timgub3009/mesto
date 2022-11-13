@@ -6,11 +6,16 @@
   margin: 0;
   padding: 0;
   grid-area: name;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 400px;
 }
 
 @media screen and (max-width: 799px) {
   .profile__title {
     font-size: 27px;
     line-height: 1.18;
+    max-width: 250px;
   }
 }
