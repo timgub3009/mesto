@@ -1,18 +1,4 @@
-const popupElement = document.querySelector('.popup');
-const popupCloseBtnElement = popupElement.querySelector('.popup__close-button');
-const popupOpenBtnElement = document.querySelector('.profile__edit-button');
-const formElement = popupElement.querySelector('.popup__form');
-const profileName = document.querySelector('.profile__title');
-const profileJob = document.querySelector('.profile__subtitle');
-const nameInput = popupElement.querySelector('.popup__input_type_name');
-const jobInput = popupElement.querySelector('.popup__input_type_job');
-const likeBtnElement = document.querySelector('.elements__like-button');
-const popupAddBtnElement = document.querySelector('.profile__add-button');
-const cardNameInput = popupElement.querySelector('.popup__input_type_place');
-const cardLinkInput = popupElement.querySelector('.popup__input_type_link');
-const cardName = document.querySelector('.elements__card-heading');
-const deleteBtnElement = document.querySelector('.elements__delete-button');
-
+//array of cards to add
 const initialCards = [
   {
     name: 'Архыз',
@@ -40,41 +26,100 @@ const initialCards = [
   }
 ];
 
-const likeCounter = function () {
-  likeBtnElement.classList.toggle('elements__like-button_type_active');
-}
+//popups
+const popupEdit = document.querySelector('.popup_type_edit');
+const popupAdd = document.querySelector('.popup_type_add');
+const popupCloseUp = document.querySelector('.popup_type_close-up');
 
-const deleteButton = function (event) {
-  const cardElement = event.target.closest('.elements__card');
-  cardElement.remove();
-}
+//popups-buttons(open)
+const popupOpenButton = document.querySelector('.profile__edit-button');
+const popupAddButton = document.querySelector('.profile__add-button');
 
-const openPopup = function () {
-  popupElement.classList.add('popup_opened');
+//popups-buttons(close)
+const popupEditClose = popupEdit.querySelector('.popup__close-button');
+const popupAddClose = popupAdd.querySelector('.popup__close-button');
+const popupCloseUpClose = popupCloseUp.querySelector('.popup__close-button');
+
+//popups-forms
+const formPopupEdit = popupEdit.querySelector('.popup__form');
+const formPopupAdd = popupAdd.querySelector('.popup__form');
+
+//popups-inputs
+const profileName = document.querySelector('.profile__title');
+const profileJob = document.querySelector('.profile__subtitle');
+const nameInput = popupEdit.querySelector('.popup__input_type_name');
+const jobInput = popupEdit.querySelector('.popup__input_type_job');
+const cardNameInput = popupAdd.querySelector('.popup__input_type_place');
+const cardLinkInput = popupAdd.querySelector('.popup__input_type_link');
+const cardName = popupAdd.querySelector('.elements__card-heading');
+
+//likes
+const likeButton = document.querySelectorAll('.elements__like-button');
+
+//delete
+const deleteButton = document.querySelectorAll('.elements__delete-button');
+
+//popup-opener
+const togglePopup = function(popup) {
+  popup.classList.toggle('popup_opened');
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+};
+
+//overlay clicking
+const closePopupByClickOnOverlay = function(evt) {
+  if (evt.target === evt.currentTarget)
+  togglePopup(evt.target);
 }
 
-const closePopup = function (event) {
-  popupElement.classList.remove('popup_opened');
+//likes counter
+const likeCounter = function (evt) {
+  evt.target.classList.toggle('elements__like-button_type_active');
 }
 
-const closePopupByClickOnOverlay = function(event) {
-  if (event.target === event.currentTarget) {
-    closePopup();
-  }
-}
+//delete btn
+const sendToTrash = function (evt) {
+  evt.target.closest('.elements__card').remove();}
 
+//submit
 function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closePopup();
+  togglePopup(popupEdit);
 }
 
-popupCloseBtnElement.addEventListener('click', closePopup);
-popupOpenBtnElement.addEventListener('click', openPopup);
-popupElement.addEventListener('click', closePopupByClickOnOverlay);
-formElement.addEventListener('submit', formSubmitHandler);
-likeBtnElement.addEventListener('click', likeCounter);
-deleteBtnElement.addEventListener('click', deleteButton);
+//new cards to add
+//const createCard = (data) => {
+  // Клонируем шаблон, наполняем его информацией из объекта data, навешиваем всякие обработчики событий, о которых будет инфа ниже
+  // Возвращаем получившуюся карточку
+  //return cardElement;
+//};
+//initialCards.forEach(card => { renderCard(card); });
+
+//listeners to open
+popupOpenButton.addEventListener('click', function () {
+  togglePopup(popupEdit)});
+popupAddButton.addEventListener('click', function () {
+  togglePopup(popupAdd)});
+
+//listeners to close
+popupEditClose.addEventListener('click', function () {
+  togglePopup(popupEdit)});
+popupAddClose.addEventListener('click', function () {
+  togglePopup(popupAdd)});
+
+//listener to submit
+formPopupEdit.addEventListener('submit', formSubmitHandler);
+
+//listener to overlay clicking
+popupEdit.addEventListener('click', closePopupByClickOnOverlay);
+popupAdd.addEventListener('click', closePopupByClickOnOverlay);
+
+//listener to likes
+likeButton.forEach(function(like) {
+  like.addEventListener('click', likeCounter);});
+
+//listener to delete
+deleteButton.forEach(function(button) {
+  button.addEventListener('click', sendToTrash);});

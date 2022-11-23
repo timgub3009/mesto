@@ -79,7 +79,7 @@
   <footer class="footer">
     <p class="footer__text">&copy;&nbsp;2020 Mesto Russia</p>
   </footer>
-  <section class="popup">
+  <section class="popup popup_type_edit">
     <div class="popup__container">
       <button class="popup__close-button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -89,18 +89,25 @@
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
     </div>
+  </section>
 
-   <!-- <div class="popup__container">
+    <section class="popup popup_type_add">
+    <div class="popup__container">
       <button class="popup__close-button"></button>
       <h2 class="popup__title">Новое место</h2>
       <form action="post" class="popup__form">
-        <input type="text" class="popup__input popup__input_type_name" placeholder="Название">
-        <input type="text" class="popup__input popup__input_type_job" placeholder="Ссылка на картинку">
+        <input type="text" class="popup__input popup__input_type_place" placeholder="Название">
+        <input type="text" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку">
         <button type="submit" class="popup__submit-button">Создать</button>
       </form>
     </div>
-  -->
   </section>
+
+  <section class="popup popup_type_close-up">
+    <div class="popup__container">
+      <button class="popup__close-button"></button>
+  </section>
+
   <script src="./scripts/index.js"></script>
 </body>
 
