@@ -26,52 +26,52 @@
     <section class="elements">
       <ul class="elements__table">
         <li class="elements__card">
-            <img class="elements__image" src="./images/karach.png" alt="">
-            <button class="elements__delete-button"></button>
-            <div class="elements__info">
-              <h2 class="elements__card-heading">Карачаевск</h2>
-              <button class="elements__like-button"></button>
-            </div>
+          <img class="elements__image" src="./images/karach.png" alt="">
+          <button class="elements__delete-button"></button>
+          <div class="elements__info">
+            <h2 class="elements__card-heading">Карачаевск</h2>
+            <button class="elements__like-button"></button>
+          </div>
         </li>
         <li class="elements__card">
-            <img class="elements__image" src="./images/elbrus.png" alt="">
-            <button class="elements__delete-button"></button>
-            <div class="elements__info">
-              <h2 class="elements__card-heading">Гора Эльбрус</h2>
-              <button class="elements__like-button"></button>
-            </div>
+          <img class="elements__image" src="./images/elbrus.png" alt="">
+          <button class="elements__delete-button"></button>
+          <div class="elements__info">
+            <h2 class="elements__card-heading">Гора Эльбрус</h2>
+            <button class="elements__like-button"></button>
+          </div>
         </li>
         <li class="elements__card">
-            <img class="elements__image" src="./images/dombai.png" alt="">
-            <button class="elements__delete-button"></button>
-            <div class="elements__info">
-              <h2 class="elements__card-heading">Домбай</h2>
-              <button class="elements__like-button"></button>
-            </div>
+          <img class="elements__image" src="./images/dombai.png" alt="">
+          <button class="elements__delete-button"></button>
+          <div class="elements__info">
+            <h2 class="elements__card-heading">Домбай</h2>
+            <button class="elements__like-button"></button>
+          </div>
         </li>
         <li class="elements__card">
-            <img class="elements__image" src="./images/elbrus.png" alt="">
-            <button class="elements__delete-button"></button>
-            <div class="elements__info">
-              <h2 class="elements__card-heading">Гора Эльбрус</h2>
-              <button class="elements__like-button"></button>
-            </div>
+          <img class="elements__image" src="./images/elbrus.png" alt="">
+          <button class="elements__delete-button"></button>
+          <div class="elements__info">
+            <h2 class="elements__card-heading">Гора Эльбрус</h2>
+            <button class="elements__like-button"></button>
+          </div>
         </li>
         <li class="elements__card">
-            <img class="elements__image" src="./images/dombai.png" alt="">
-            <button class="elements__delete-button"></button>
-            <div class="elements__info">
-              <h2 class="elements__card-heading">Домбай</h2>
-              <button class="elements__like-button"></button>
-            </div>
+          <img class="elements__image" src="./images/dombai.png" alt="">
+          <button class="elements__delete-button"></button>
+          <div class="elements__info">
+            <h2 class="elements__card-heading">Домбай</h2>
+            <button class="elements__like-button"></button>
+          </div>
         </li>
         <li class="elements__card">
-            <img class="elements__image" src="./images/karach.png" alt="">
-            <button class="elements__delete-button"></button>
-            <div class="elements__info">
-              <h2 class="elements__card-heading">Карачаево-Черкессия</h2>
-              <button class="elements__like-button"></button>
-            </div>
+          <img class="elements__image" src="./images/karach.png" alt="">
+          <button class="elements__delete-button"></button>
+          <div class="elements__info">
+            <h2 class="elements__card-heading">Карачаево-Черкессия</h2>
+            <button class="elements__like-button"></button>
+          </div>
         </li>
       </ul>
     </section>
@@ -83,30 +83,47 @@
     <div class="popup__container">
       <button class="popup__close-button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form action="post" class="popup__form">
+      <form class="popup__form">
         <input type="text" class="popup__input popup__input_type_name" placeholder="Жак-Ив Кусто">
         <input type="text" class="popup__input popup__input_type_job" placeholder="Исследователь океана">
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
     </div>
   </section>
-
-    <section class="popup popup_type_add">
+  <section class="popup popup_type_add">
     <div class="popup__container">
       <button class="popup__close-button"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form action="post" class="popup__form">
+      <form class="popup__form">
         <input type="text" class="popup__input popup__input_type_place" placeholder="Название">
         <input type="text" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку">
         <button type="submit" class="popup__submit-button">Создать</button>
       </form>
     </div>
   </section>
-
-  <section class="popup popup_type_close-up">
-    <div class="popup__container">
-      <button class="popup__close-button"></button>
+  <section class="popup popup_type_closeup">
   </section>
+
+  <template class="elements-template">
+    <li class="elements__card">
+      <img class="elements__image" src="" alt="">
+      <button class="elements__delete-button"></button>
+      <div class="elements__info">
+        <h2 class="elements__card-heading"></h2>
+        <button class="elements__like-button"></button>
+      </div>
+    </li>
+  </template>
+
+  <template class="closeup-template">
+  <div class="popup__image-container">
+  <figure class="popup__figure">
+    <div class="popup__image" src="" alt="">
+      <figcaption class="popup__figcaption"></figcaption>
+  </figure>
+  <button class="popup__close-button"></button>
+</div>
+</template>
 
   <script src="./scripts/index.js"></script>
 </body>
