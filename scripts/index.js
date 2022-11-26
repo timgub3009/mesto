@@ -185,6 +185,7 @@ formPopupAdd.addEventListener('submit', formAddSubmitHandler);
 //listener to overlay clicking
 popupEdit.addEventListener('click', closePopupByClickOnOverlay);
 popupAdd.addEventListener('click', closePopupByClickOnOverlay);
+popupCloseUp.addEventListener('click', closePopupByClickOnOverlay);
 
 //listener to likes
 likeButton.forEach(function (like) {
