@@ -29,7 +29,7 @@ const initialCards = [
 //popups
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
-const popupCloseUp = document.querySelector('.popup_type_close-up');
+const popupCloseUp = document.querySelector('.popup_type_closeup');
 
 //popups-buttons(open)
 const popupOpenButton = document.querySelector('.profile__edit-button');
@@ -38,6 +38,7 @@ const popupAddButton = document.querySelector('.profile__add-button');
 //popups-buttons(close)
 const popupEditClose = popupEdit.querySelector('.popup__close-button');
 const popupAddClose = popupAdd.querySelector('.popup__close-button');
+const imageClose = popupCloseUp.querySelector('.popup__close-button');
 
 //popups-forms
 const formPopupEdit = popupEdit.querySelector('.popup__form');
@@ -49,6 +50,8 @@ const profileJob = document.querySelector('.profile__subtitle');
 const nameInput = popupEdit.querySelector('.popup__input_type_name');
 const jobInput = popupEdit.querySelector('.popup__input_type_job');
 const cardName = popupAdd.querySelector('.elements__card-heading');
+const popupImage = popupCloseUp.querySelector('.popup__image');
+const popupImageCaption = popupCloseUp.querySelector('.popup__figcaption');
 
 //likes
 const likeButton = document.querySelectorAll('.elements__like-button');
@@ -56,11 +59,9 @@ const likeButton = document.querySelectorAll('.elements__like-button');
 //delete
 const deleteButton = document.querySelectorAll('.elements__delete-button');
 
-//template
-
-
 //card container
 const cardsContainer = document.querySelector('.elements__table');
+const cardsImage = document.querySelectorAll('.elements__image');
 
 //popup-opener
 const togglePopup = function (popup) {
@@ -86,18 +87,13 @@ const sendToTrash = function (evt) {
 }
 
 //closeup
-// const closeUpCard = function (evt) {
-//   const closeUpTemplate = document.querySelector('.closeup-template').content;
-//   const closeUpElement = closeUpTemplate.querySelector('.popup__figure').cloneNode(true);
-//   const closeUpContainer = closeUpTemplate.querySelector('.popup__image-container');
-//   const closeUpName = document.querySelector('.elements__card-heading');
-
-//   closeUpElement.querySelector('popup__image').alt = evt.target.alt;
-//   closeUpElement.querySelector('popup__image').src = evt.target.src;
-//   closeUpElement.querySelector('popup__figcaption').textContent = evt.target.heading;
-
-//   closeUpContainer.append(closeUpElement);
-//}
+const closeUpPopup = function (evt) {
+  if (evt.target === evt.currentTarget)
+    togglePopup(popupCloseUp);
+  popupImage.alt = evt.target.alt;
+  popupImage.src = evt.target.src;
+  popupImageCaption.textContent = evt.target.alt;
+}
 
 //new cards to add
 const createCard = function (item) {
@@ -110,6 +106,7 @@ const createCard = function (item) {
 
   const likeButton = createCardElement.querySelector('.elements__like-button');
   const deleteButton = createCardElement.querySelector('.elements__delete-button');
+  const cardsImage = createCardElement.querySelector('.elements__image');
 
   const sendToTrash = function (evt) {
     evt.target.closest('.elements__card').remove();
@@ -119,9 +116,19 @@ const createCard = function (item) {
     evt.target.classList.toggle('elements__like-button_type_active');
   }
 
+  const closeUpPopup = function (evt) {
+    if (evt.target === evt.currentTarget)
+      togglePopup(popupCloseUp);
+    popupImage.alt = evt.target.alt;
+    popupImage.src = evt.target.src;
+    popupImageCaption.textContent = evt.target.alt;
+  }
+
   likeButton.addEventListener('click', likeCounter);
 
   deleteButton.addEventListener('click', sendToTrash);
+
+  cardsImage.addEventListener('click', closeUpPopup);
 
   cardsContainer.prepend(createCardElement);
 }
@@ -148,7 +155,7 @@ function formAddSubmitHandler(evt) {
   togglePopup(popupAdd);
 }
 
-initialCards.forEach(function(card) {
+initialCards.forEach(function (card) {
   createCard(card);
 });
 
@@ -167,6 +174,9 @@ popupEditClose.addEventListener('click', function () {
 popupAddClose.addEventListener('click', function () {
   togglePopup(popupAdd)
 });
+imageClose.addEventListener('click', function () {
+  togglePopup(popupCloseUp)
+});
 
 //listener to submit
 formPopupEdit.addEventListener('submit', formSubmitHandler);
@@ -184,4 +194,9 @@ likeButton.forEach(function (like) {
 //listener to delete
 deleteButton.forEach(function (button) {
   button.addEventListener('click', sendToTrash);
+});
+
+//listener to closeup
+cardsImage.forEach(function (image) {
+  image.addEventListener('click', closeUpPopup);
 });
