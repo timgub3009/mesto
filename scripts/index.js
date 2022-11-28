@@ -35,9 +35,9 @@ const cardTemplate = document.querySelector('.elements-template').content;
 
 //popup-open
 const openPopup = function (popup) {
-  popup.classList.add('popup_opened');
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  popup.classList.add('popup_opened');
 }
 
 //popup-close
