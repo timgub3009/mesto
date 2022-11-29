@@ -35,8 +35,6 @@ const cardTemplate = document.querySelector('.elements-template').content;
 
 //popup-open
 const openPopup = function (popup) {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
   popup.classList.add('popup_opened');
 }
 
@@ -120,6 +118,8 @@ function submitCardAdd(evt) {
 
 //listeners to open
 popupOpenButton.addEventListener('click', function () {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
   openPopup(popupEdit)
 });
 popupAddButton.addEventListener('click', function () {
