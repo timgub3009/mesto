@@ -35,9 +35,11 @@
     <div class="popup__container">
       <button class="popup__close-button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form">
-        <input type="text" class="popup__input popup__input_type_name" placeholder="Жак-Ив Кусто">
-        <input type="text" class="popup__input popup__input_type_job" placeholder="Исследователь океана">
+      <form class="popup__form" novalidate>
+        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" minlength="2" maxlength="40" required>
+        <span id="name-error" class="popup__error"></span>
+        <input type="text" name="description" class="popup__input popup__input_type_job" placeholder="О себе" minlength="2" maxlength="200" required>
+        <span id="description-error" class="popup__error"></span>
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
     </div>
@@ -46,9 +48,11 @@
     <div class="popup__container">
       <button class="popup__close-button"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form class="popup__form">
-        <input type="text" class="popup__input popup__input_type_place" placeholder="Название">
-        <input type="text" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку">
+      <form class="popup__form" novalidate>
+        <input type="text" name="title" id="title" class="popup__input popup__input_type_place" placeholder="Название" minlength="2" maxlength="30" required>
+        <span id="title-error" class="popup__error"></span>
+        <input type="url" name="link" id="link" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку" required>
+        <span id="link-error" class="popup__error"></span>
         <button type="submit" class="popup__submit-button">Создать</button>
       </form>
     </div>

@@ -33,20 +33,30 @@ const cardsContainer = document.querySelector('.elements__table');
 //template
 const cardTemplate = document.querySelector('.elements-template').content;
 
+
+
 //popup-open
 const openPopup = function (popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keyup', closePopupByEscape)
 }
 
 //popup-close
 const closePopup = function (popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keyup', closePopupByEscape)
 }
 
 //overlay clicking
 const closePopupByClickOnOverlay = function (evt) {
   if (evt.target === evt.currentTarget)
     closePopup(evt.target);
+}
+
+const closePopupByEscape = function (evt) {
+  if (evt.key === 'Escape')
+    {const popupIsActive = document.querySelector('.popup_opened');
+    closePopup(popupIsActive);}
 }
 
 //likes counter
@@ -149,3 +159,54 @@ popupCloseUp.addEventListener('click', closePopupByClickOnOverlay);
 initialCards.forEach(function (card) {
   renderCard(card);
 });
+
+
+const validationObj = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  errorClass: 'popup__error_active',
+}
+
+function enableValidation ({formSelector, inputSelector, submitButtonSelector, errorClass}) {
+  //1 func
+  const forms = Array.from(document.querySelectorAll(formSelector));
+  forms.forEach(form => {
+    form.addEventListener('submit', evt => evt.preventDefault());
+  });
+  //2 func
+  const inputs = Array.from(document.querySelectorAll(inputSelector));
+  inputs.forEach(input => {
+    input.addEventListener('input', evt => {
+    //3 func
+    const inputName = input.getAttribute('name');
+    const errorPlace = document.getElementById(`${inputName}-error`);
+      toggleButtonState(inputs);
+    if (input.validity.valid) {
+      errorPlace.classList.remove(errorClass);
+      errorPlace.textContent = "";
+    }
+    else {
+      errorPlace.textContent = input.validationMessage;
+      errorPlace.classList.add(errorClass);
+    }
+})
+});
+
+const hasInvalidInput = (inputs) => {
+  return inputs.some((input) => {
+  return !input.validity.valid;
+});
+}
+
+const toggleButtonState = (inputs, button) => {
+  if (hasInvalidInput(inputs)) {
+  const button = document.querySelector(submitButtonSelector);
+  button.classList.add('popup__submit-button_inactive');
+} else {
+  button.classList.remove('popup__submit-button_inactive');
+}
+}
+}
+
+enableValidation(validationObj);
