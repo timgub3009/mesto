@@ -3,16 +3,10 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 1.2;
-  margin-bottom: 30px;
   width: 100%;
   box-sizing: border-box;
   padding: 0 0 6px;
   border: 0;
-}
-
-.popup__input:last-of-type {
-  padding-bottom: 10px;
-  margin-bottom: 46px;
 }
 
 .popup__input:valid {

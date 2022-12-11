@@ -1,12 +1,23 @@
 .popup__error {
-  display: none;
-}
-
-.popup__error_active {
-  display: inline;
+  opacity: 0;
   color: rgba(255, 0, 0, 1);
   font-weight: 400;
   font-size: 12px;
   line-height: 1.21;
+  transition: 0.3s;
+  position: absolute;
+  top: 35px;
+  min-width: 358px;
 }
 
+@media screen and (max-width: 499px) {
+  .popup__error {
+    min-width: 282px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .popup__error {
+    min-width: 200px;
+  }
+}
