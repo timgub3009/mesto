@@ -40,8 +40,10 @@ const checkValidity = (form, input, errorClass, inputErrorClass) => {
 const toggleButtonState = (inputs, submitButtonElement, inactiveButtonClass) => {
   if (inputs.some((input) => !input.validity.valid)) {
     submitButtonElement.classList.add(inactiveButtonClass);
+    submitButtonElement.setAttribute('disabled', true);
   } else {
     submitButtonElement.classList.remove(inactiveButtonClass);
+    submitButtonElement.removeAttribute('disabled');
   }
 };
 

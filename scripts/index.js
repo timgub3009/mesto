@@ -2,15 +2,11 @@
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
 const popupCloseUp = document.querySelector('.popup_type_closeup');
+const popupWindows = document.querySelectorAll('.popup');
 
 //popups-buttons(open)
 const popupOpenButton = document.querySelector('.profile__edit-button');
 const popupAddButton = document.querySelector('.profile__add-button');
-
-//popups-buttons(close)
-const popupEditClose = popupEdit.querySelector('.popup__close-button');
-const popupAddClose = popupAdd.querySelector('.popup__close-button');
-const imageClose = popupCloseUp.querySelector('.popup__close-button');
 
 //popups-forms
 const formPopupEdit = popupEdit.querySelector('.popup__form');
@@ -33,6 +29,9 @@ const cardsContainer = document.querySelector('.elements__table');
 //template
 const cardTemplate = document.querySelector('.elements-template').content;
 
+//submit
+const submitAddButton = popupAdd.querySelector('.popup__submit-button');
+
 //popup-open
 const openPopup = function (popup) {
   popup.classList.add('popup_opened');
@@ -43,12 +42,6 @@ const openPopup = function (popup) {
 const closePopup = function (popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keyup', closePopupByEscape);
-}
-
-//overlay clicking
-const closePopupByClickOnOverlay = function (evt) {
-  if (evt.target === evt.currentTarget)
-    closePopup(evt.target);
 }
 
 const closePopupByEscape = function (evt) {
@@ -102,6 +95,17 @@ const renderCard = function (data) {
   cardsContainer.prepend(cardElement);
 }
 
+//reset submit button
+const resetSubmitButton = (popup) => {
+  if (popup === popupAdd) {
+    submitAddButton.setAttribute('disabled', true);
+    submitAddButton.classList.add('popup__submit-button_inactive');
+  } else {
+    submitAddButton.removeAttribute('disabled');
+    submitAddButton.classList.remove('popup__submit-button_inactive');
+  }
+}
+
 //submit for profile
 function submitProfileInfo(evt) {
   evt.preventDefault();
@@ -121,39 +125,35 @@ function submitCardAdd(evt) {
 
   renderCard(imageObject);
   closePopup(popupAdd);
-  cardNameInput.value = "";
-  cardLinkInput.value = "";
+  evt.target.reset();
 }
 
 //listeners to open
 popupOpenButton.addEventListener('click', function () {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  openPopup(popupEdit)
+  openPopup(popupEdit);
 });
 popupAddButton.addEventListener('click', function () {
-  openPopup(popupAdd)
+  openPopup(popupAdd);
+  resetSubmitButton(popupAdd);
 });
 
 //listeners to close
-popupEditClose.addEventListener('click', function () {
-  closePopup(popupEdit)
-});
-popupAddClose.addEventListener('click', function () {
-  closePopup(popupAdd)
-});
-imageClose.addEventListener('click', function () {
-  closePopup(popupCloseUp)
-});
+popupWindows.forEach((popupWindow) => {
+  popupWindow.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+          closePopup(popupWindow)
+      }
+      if (evt.target.classList.contains('popup__close-button')) {
+        closePopup(popupWindow)
+      }
+  })
+})
 
 //listener to submit
 formPopupEdit.addEventListener('submit', submitProfileInfo);
 formPopupAdd.addEventListener('submit', submitCardAdd);
-
-//listener to overlay clicking
-popupEdit.addEventListener('click', closePopupByClickOnOverlay);
-popupAdd.addEventListener('click', closePopupByClickOnOverlay);
-popupCloseUp.addEventListener('click', closePopupByClickOnOverlay);
 
 initialCards.forEach(function (card) {
   renderCard(card);
