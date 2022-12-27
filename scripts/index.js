@@ -88,7 +88,7 @@ function submitCardAdd(evt) {
     link: cardLinkInput.value,
   };
 
-  renderCard(imageObject, '.elements-template');
+  renderCard(imageObject, cardTemplate);
   closePopup(popupAdd);
   evt.target.reset();
 }
@@ -120,6 +120,6 @@ popupWindows.forEach((popupWindow) => {
 formPopupEdit.addEventListener('submit', submitProfileInfo);
 formPopupAdd.addEventListener('submit', submitCardAdd);
 
-initialCards.forEach(function (card) {
-  renderCard(card, '.elements-template');
+initialCards.forEach(function (initialCard) {
+  renderCard(initialCard, cardTemplate);
 });
