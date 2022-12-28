@@ -1,42 +1,42 @@
-import { openPopup, popupImage, popupImageCaption } from './index.js'
+import { popupImage, popupImageCaption, openPopup } from './popup.js'
 
 class Card {
-    constructor(imageObject, template) {
-        this._name = imageObject.name;
-        this._link = imageObject.link;
-        this._templateSelector = template;
-    }
+  constructor(imageObject, template) {
+    this._name = imageObject.name;
+    this._link = imageObject.link;
+    this._templateSelector = template;
+  }
 
-    _getTemplate() {
-        const cardElement = document.querySelector(this._templateSelector).content.querySelector('.elements__card').cloneNode(true);
-        return cardElement;
-    }
+  _getTemplate() {
+    const cardElement = document.querySelector(this._templateSelector).content.querySelector('.elements__card').cloneNode(true);
+    return cardElement;
+  }
 
-    _generateCard() {
-        this._element = this._getTemplate();
+  _generateCard() {
+    this._element = this._getTemplate();
 
-        this._setEventListeners();
+    this._setEventListeners();
 
-        this._cardImage.alt = this._name;
-        this._cardImage.src = this._link;
-        this._element.querySelector('.elements__card-heading').textContent = this._name;
+    this._cardImage.alt = this._name;
+    this._cardImage.src = this._link;
+    this._element.querySelector('.elements__card-heading').textContent = this._name;
 
-        return this._element;
-    }
+    return this._element;
+  }
 
-    _likeCounter = function (evt) {
+  _likeCounter = function (evt) {
     evt.target.classList.toggle('elements__like-button_type_active');
   }
 
-    _sendToTrash = function (evt) {
+  _sendToTrash = function (evt) {
     evt.target.closest('.elements__card').remove();
   }
 
   _closeUpPopup = function (evt) {
     if (evt.target === evt.currentTarget)
-        popupImage.alt = evt.target.alt;
-        popupImage.src = evt.target.src;
-        popupImageCaption.textContent = evt.target.alt;
+      popupImage.alt = evt.target.alt;
+    popupImage.src = evt.target.src;
+    popupImageCaption.textContent = evt.target.alt;
     openPopup(popupCloseUp);
   }
 
@@ -54,3 +54,4 @@ class Card {
 }
 
 export { Card };
+
