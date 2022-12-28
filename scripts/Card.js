@@ -1,4 +1,4 @@
-import { popupImage, popupImageCaption, openPopup } from './popup.js'
+import { popupImage, popupImageCaption, openPopup, popupCloseUp } from './popup.js'
 
 class Card {
   constructor(imageObject, template) {
@@ -7,9 +7,9 @@ class Card {
     this._templateSelector = template;
   }
 
-  _getTemplate() {
-    const cardElement = document.querySelector(this._templateSelector).content.querySelector('.elements__card').cloneNode(true);
-    return cardElement;
+    _getTemplate() {
+      const cardElement = this._templateSelector.querySelector('.elements__card').cloneNode(true);
+      return cardElement;
   }
 
   _generateCard() {

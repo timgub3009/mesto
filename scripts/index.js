@@ -20,7 +20,7 @@ const cardTemplate = document.querySelector('.elements-template').content;
 //add a card to the list
 const renderCard = function (imageObject, template) {
   const card = new Card(imageObject, template);
-  cardsContainer.prepend(card);
+  cardsContainer.prepend(card._generateCard());
 }
 
 //submit for profile

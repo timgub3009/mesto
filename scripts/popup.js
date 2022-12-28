@@ -75,4 +75,4 @@ popupWindows.forEach((popupWindow) => {
     })
 })
 
-export { popupEdit, popupAdd, popupImage, popupImageCaption, openPopup, nameInput, jobInput, profileJob, profileName, closePopup };
+export { popupEdit, popupAdd, popupImage, popupImageCaption, openPopup, nameInput, jobInput, profileJob, profileName, closePopup, popupCloseUp };
