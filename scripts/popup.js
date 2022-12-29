@@ -23,56 +23,56 @@ const submitAddButton = popupAdd.querySelector('.popup__submit-button');
 
 //popup-open
 const openPopup = function (popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keyup', closePopupByEscape);
+  popup.classList.add('popup_opened');
+  document.addEventListener('keyup', closePopupByEscape);
 }
 
 //popup-close
 const closePopup = function (popup) {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keyup', closePopupByEscape);
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keyup', closePopupByEscape);
 }
 
 //popup-close-by-esc
 const closePopupByEscape = function (evt) {
-    if (evt.key === 'Escape') {
-        const popupIsActive = document.querySelector('.popup_opened');
-        closePopup(popupIsActive);
-    }
+  if (evt.key === 'Escape') {
+    const popupIsActive = document.querySelector('.popup_opened');
+    closePopup(popupIsActive);
+  }
 }
 
 //reset submit button
 const resetSubmitButton = (popup) => {
-    if (popup === popupAdd) {
-        submitAddButton.setAttribute('disabled', true);
-        submitAddButton.classList.add('popup__submit-button_inactive');
-    } else {
-        submitAddButton.removeAttribute('disabled');
-        submitAddButton.classList.remove('popup__submit-button_inactive');
-    }
+  if (popup === popupAdd) {
+    submitAddButton.setAttribute('disabled', true);
+    submitAddButton.classList.add('popup__submit-button_inactive');
+  } else {
+    submitAddButton.removeAttribute('disabled');
+    submitAddButton.classList.remove('popup__submit-button_inactive');
+  }
 }
 
 //listeners to open
 popupOpenButton.addEventListener('click', function () {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-    openPopup(popupEdit);
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+  openPopup(popupEdit);
 });
 popupAddButton.addEventListener('click', function () {
-    openPopup(popupAdd);
-    resetSubmitButton(popupAdd);
+  openPopup(popupAdd);
+  resetSubmitButton(popupAdd);
 });
 
 //listeners to close
 popupWindows.forEach((popupWindow) => {
-    popupWindow.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('popup_opened')) {
-            closePopup(popupWindow)
-        }
-        if (evt.target.classList.contains('popup__close-button')) {
-            closePopup(popupWindow)
-        }
-    })
+  popupWindow.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popupWindow)
+    }
+    if (evt.target.classList.contains('popup__close-button')) {
+      closePopup(popupWindow)
+    }
+  })
 })
 
 export { popupEdit, popupAdd, popupImage, popupImageCaption, openPopup, nameInput, jobInput, profileJob, profileName, closePopup, popupCloseUp };

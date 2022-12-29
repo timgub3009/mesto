@@ -7,11 +7,12 @@ class Card {
     this._templateSelector = template;
   }
 
-    _getTemplate() {
-      const cardElement = this._templateSelector.querySelector('.elements__card').cloneNode(true);
-      return cardElement;
+  //get template
+  _getTemplate() {
+    const cardElement = this._templateSelector.querySelector('.elements__card').cloneNode(true);
+    return cardElement;
   }
-
+  //creation of the card on the basis of template
   _generateCard() {
     this._element = this._getTemplate();
 
@@ -23,7 +24,7 @@ class Card {
 
     return this._element;
   }
-
+  //all three methods (likes, deletions, closeups)
   _likeCounter = function (evt) {
     evt.target.classList.toggle('elements__like-button_type_active');
   }
@@ -40,7 +41,7 @@ class Card {
     openPopup(popupCloseUp);
   }
 
-
+  //setting eventlisteners on buttons
   _setEventListeners() {
     this._likeButton = this._element.querySelector('.elements__like-button');
     this._deleteButton = this._element.querySelector('.elements__delete-button');
@@ -54,4 +55,3 @@ class Card {
 }
 
 export { Card };
-
