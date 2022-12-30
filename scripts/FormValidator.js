@@ -6,6 +6,8 @@ class FormValidator {
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
+    this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._submitButtonElement = this._form.querySelector(this._submitButtonSelector);
   }
 
   //validation method (not private)
@@ -50,17 +52,26 @@ class FormValidator {
     }
   };
 
+//reset submit button
+disableSubmitButton = (popup) => {
+  if (popup === popupAdd) {
+    submitAddButton.setAttribute('disabled', true);
+    submitAddButton.classList.add('popup__submit-button_inactive');
+  } else {
+    submitAddButton.removeAttribute('disabled');
+    submitAddButton.classList.remove('popup__submit-button_inactive');
+  }
+}
+
   //setting event listeners in one method (checkvalidity + button state)
   _setEventListeners() {
-    const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const submitButtonElement = this._form.querySelector(this._submitButtonSelector);
-    inputs.forEach((input) => {
+    this._inputs.forEach((input) => {
       input.addEventListener('input', () => {
         this._checkValidity(input);
-        this._toggleButtonState(inputs, submitButtonElement);
+        this._toggleButtonState(this._inputs, this._submitButtonElement);
       });
     });
-    this._toggleButtonState(inputs, submitButtonElement);
+    this._toggleButtonState(this._inputs, this._submitButtonElement);
   };
 }
 

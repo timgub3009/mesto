@@ -1,4 +1,4 @@
-import { popupImage, popupImageCaption, openPopup, popupCloseUp } from './popup.js'
+import { popupImage, popupImageCaption, openPopup, popupZoomImage } from './utils.js'
 
 class Card {
   constructor(imageObject, template) {
@@ -34,11 +34,10 @@ class Card {
   }
 
   _closeUpPopup = function (evt) {
-    if (evt.target === evt.currentTarget)
       popupImage.alt = evt.target.alt;
     popupImage.src = evt.target.src;
     popupImageCaption.textContent = evt.target.alt;
-    openPopup(popupCloseUp);
+    openPopup(popupZoomImage);
   }
 
   //setting eventlisteners on buttons
