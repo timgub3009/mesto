@@ -52,16 +52,17 @@ class FormValidator {
     }
   };
 
-//reset submit button
-disableSubmitButton = (popup) => {
-  if (popup === popupAdd) {
-    submitAddButton.setAttribute('disabled', true);
-    submitAddButton.classList.add('popup__submit-button_inactive');
-  } else {
-    submitAddButton.removeAttribute('disabled');
-    submitAddButton.classList.remove('popup__submit-button_inactive');
+  //reset for button (add)
+  resetSubmitButton() {
+    this._toggleButtonState(this._inputs, this._submitButtonElement);
   }
-}
+
+  //reset for form (edit)
+  resetFormValidation() {
+    this._inputs.forEach((input) => {
+      this._hideError(input);
+    });
+  }
 
   //setting event listeners in one method (checkvalidity + button state)
   _setEventListeners() {

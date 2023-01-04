@@ -25,7 +25,6 @@ const cardLinkInput = popupAdd.querySelector('.popup__input_type_link');
 //popups-buttons(open)
 const popupOpenButton = document.querySelector('.profile__edit-button');
 const popupAddButton = document.querySelector('.profile__add-button');
-const submitAddButton = popupAdd.querySelector('.popup__submit-button');
 
 //card container
 const cardsContainer = document.querySelector('.elements__table');
@@ -51,10 +50,10 @@ const renderCard = function (imageObject, template) {
 
 //add validation to any form
 
-  const formValidatorForAdd = new FormValidator(validationObject, popupAdd);
-  const formValidatorForEdit = new FormValidator(validationObject, popupEdit);
-  formValidatorForAdd.enableValidation();
-  formValidatorForEdit.enableValidation();
+const formValidatorForAdd = new FormValidator(validationObject, popupAdd);
+const formValidatorForEdit = new FormValidator(validationObject, popupEdit);
+formValidatorForAdd.enableValidation();
+formValidatorForEdit.enableValidation();
 
 
 //submit for profile
@@ -84,10 +83,11 @@ popupOpenButton.addEventListener('click', function () {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(popupEdit);
+  formValidatorForEdit.resetFormValidation();
 });
 popupAddButton.addEventListener('click', function () {
   openPopup(popupAdd);
-  formValidatorForAdd._toggleButtonState();
+  formValidatorForAdd.resetSubmitButton();
 });
 
 //listeners to close
