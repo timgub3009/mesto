@@ -2,6 +2,10 @@ import { Card } from './Card.js';
 import { initialCards } from './data.js';
 import { FormValidator } from './FormValidator.js';
 import { openPopup, closePopup } from './utils.js';
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import { UserInfo } from './UserInfo.js';
+import { Section } from './Section.js';
 
 //popups
 const popupEdit = document.querySelector('.popup_type_edit');
@@ -32,8 +36,12 @@ const cardsContainer = document.querySelector('.elements__table');
 //template
 const cardTemplate = document.querySelector('.elements-template').content;
 
+const popupZoomImage = document.querySelector('.popup_type_closeup');
+const popupImage = popupZoomImage.querySelector('.popup__image');
+const popupImageCaption = popupZoomImage.querySelector('.popup__figcaption');
+
 //object for validation
-const validationObject = {
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit-button',
@@ -50,19 +58,63 @@ const renderCard = function (imageObject, template) {
 
 //add validation to any form
 
-const formValidatorForAdd = new FormValidator(validationObject, popupAdd);
-const formValidatorForEdit = new FormValidator(validationObject, popupEdit);
+const formValidatorForAdd = new FormValidator(validationConfig, popupAdd);
+const formValidatorForEdit = new FormValidator(validationConfig, popupEdit);
 formValidatorForAdd.enableValidation();
 formValidatorForEdit.enableValidation();
 
 
 //submit for profile
+
+
+//профиль пользователя
+const profile = new UserInfo({
+  name: profileName,
+  description: profileJob
+});
+
+//форма редактирования профиля пользователя
+const editProfilePopup = new PopupWithForm(popupEdit, () => {
+  profile.setUserInfo(nameInput, jobInput)
+})
+
+//загрузка информации в инпуты редактирования и сохранение
 function submitProfileInfo(evt) {
   evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  closePopup(popupEdit);
+  const profileData = profile.getUserInfo();
+  nameInput.value = profileData.userName;
+  jobInput.value = profileData.userDescription;
+  editProfilePopup.close();
 }
+
+//обработчики к редактированию
+popupEdit.setEventListeners();
+formPopupEdit.addEventListener('submit', submitProfileInfo);
+
+//кнопка для редактирования
+popupOpenButton.addEventListener('click', function () {
+  submitProfileInfo();
+  editProfilePopup.open();
+  formValidatorForEdit.resetFormValidation();
+});
+
+
+//форма добавления карточки
+const add = new PopupWithForm(popupAdd, () => {
+  section.addItem
+})
+
+
+
+const section = new Section({items: initialCards, renderer: (item) => {
+  section.addItem(item)}}, cardsContainer);
+
+
+
+
+
+
+popupAdd.setEventListeners();
 
 //submit for adding images
 function submitCardAdd(evt) {
@@ -79,31 +131,26 @@ function submitCardAdd(evt) {
 }
 
 //listeners to open
-popupOpenButton.addEventListener('click', function () {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-  openPopup(popupEdit);
-  formValidatorForEdit.resetFormValidation();
-});
+
 popupAddButton.addEventListener('click', function () {
   openPopup(popupAdd);
   formValidatorForAdd.resetSubmitButton();
 });
 
 //listeners to close
-popupWindows.forEach((popupWindow) => {
-  popupWindow.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopup(popupWindow)
-    }
-    if (evt.target.classList.contains('popup__close-button')) {
-      closePopup(popupWindow)
-    }
-  })
-})
+// popupWindows.forEach((popupWindow) => {
+//   popupWindow.addEventListener('mousedown', (evt) => {
+//     if (evt.target.classList.contains('popup_opened')) {
+//       closePopup(popupWindow)
+//     }
+//     if (evt.target.classList.contains('popup__close-button')) {
+//       closePopup(popupWindow)
+//     }
+//   })
+// })
 
 //listeners to submit
-formPopupEdit.addEventListener('submit', submitProfileInfo);
+
 formPopupAdd.addEventListener('submit', submitCardAdd);
 
 //render of massive

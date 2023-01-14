@@ -1,6 +1,4 @@
-import { popupImage, popupImageCaption, openPopup, popupZoomImage } from './utils.js'
-
-class Card {
+export class Card {
   constructor(imageObject, template) {
     this._name = imageObject.name;
     this._link = imageObject.link;
@@ -33,13 +31,6 @@ class Card {
     evt.target.closest('.elements__card').remove();
   }
 
-  _closeUpPopup = function (evt) {
-      popupImage.alt = evt.target.alt;
-    popupImage.src = evt.target.src;
-    popupImageCaption.textContent = evt.target.alt;
-    openPopup(popupZoomImage);
-  }
-
   //setting eventlisteners on buttons
   _setEventListeners() {
     this._likeButton = this._element.querySelector('.elements__like-button');
@@ -52,5 +43,3 @@ class Card {
   }
 
 }
-
-export { Card };
