@@ -81,6 +81,7 @@ cardsPack.renderAllItems();
 //todo привести в соответствии с handler, бросать нужный параметр
 const addCard = new PopupWithForm(popupAdd, (imageData) => {
   cardsPack.addItem(renderCard(imageData, cardTemplate));
+  cardsPack.close();
 })
 
 //обработчики к редактированию
