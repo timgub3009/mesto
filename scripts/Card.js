@@ -1,7 +1,7 @@
-export class Card {
-  constructor(imageObject, template) {
-    this._name = imageObject.name;
-    this._link = imageObject.link;
+export default class Card {
+  constructor(item, template) {
+    this._name = item.name;
+    this._link = item.link;
     this._templateSelector = template;
   }
 
@@ -15,6 +15,8 @@ export class Card {
     this._element = this._getTemplate();
 
     this._setEventListeners();
+
+    this._cardImage = this._element.querySelector('.elements__image');
 
     this._cardImage.alt = this._name;
     this._cardImage.src = this._link;
@@ -35,11 +37,8 @@ export class Card {
   _setEventListeners() {
     this._likeButton = this._element.querySelector('.elements__like-button');
     this._deleteButton = this._element.querySelector('.elements__delete-button');
-    this._cardImage = this._element.querySelector('.elements__image');
 
     this._likeButton.addEventListener('click', (evt) => this._likeCounter(evt));
     this._deleteButton.addEventListener('click', (evt) => this._sendToTrash(evt));
-    this._cardImage.addEventListener('click', (evt) => this._closeUpPopup(evt));
   }
-
 }
