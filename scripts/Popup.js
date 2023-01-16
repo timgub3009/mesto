@@ -5,22 +5,21 @@ export default class Popup {
 
   open() {
     this._popupSelector.classList.add('popup_opened');
-    document.addEventListener('keyup', this._handleEscClose(evt));
+    document.addEventListener('keyup', this._handleEscClose);
   }
 
   close() {
     this._popupSelector.classList.remove('popup_opened');
-    document.removeEventListener('keyup', this._handleEscClose(evt));
+    document.removeEventListener('keyup', this._handleEscClose);
   }
 
-  _handleEscClose() {
+  _handleEscClose = (evt) => {
+    const popupOpened = document.querySelector('.popup_opened');
     if (evt.key === 'Escape') {
-      // const popupOpened = document.querySelector('.popup_opened');
-      this.close();
+      this.close(popupOpened);
     }
   }
 
-  //todo: работать с одним попапом  (убрать forEach, обращаться к себе через this)
   setEventListeners() {
     this._popupSelector.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains('popup_opened')) {

@@ -26,8 +26,6 @@ const cardTemplate = document.querySelector('.elements-template').content;
 const popupZoomImage = document.querySelector('.popup_type_closeup');
 const popupImage = popupZoomImage.querySelector('.popup__image');
 const popupImageCaption = popupZoomImage.querySelector('.popup__figcaption');
-const cardNameInput = popupAdd.querySelector('.popup__input_type_place');
-const cardLinkInput = popupAdd.querySelector('.popup__input_type_link');
 
 //object for validation
 const validationConfig = {
@@ -46,6 +44,7 @@ popupWithImage.setEventListeners();
 //add a card to the list
 const renderCard = function (item, template) {
   const card = new Card(item, template);
+  popupWithImage.open(item.popupImage, item.popupImageCaption);
   cardsContainer.prepend(card._generateCard());
 }
 
@@ -55,11 +54,6 @@ const formValidatorForAdd = new FormValidator(validationConfig, popupAdd);
 const formValidatorForEdit = new FormValidator(validationConfig, popupEdit);
 formValidatorForAdd.enableValidation();
 formValidatorForEdit.enableValidation();
-
-// const imageData = {
-//   name: cardNameInput.value,
-//   link: cardLinkInput.value,
-// };
 
 //профиль пользователя
 const userInfo = new UserInfo({
@@ -73,19 +67,17 @@ const editProfile = new PopupWithForm(popupEdit, (userData) => {
 })
 
 const cardsPack = new Section({items: initialCards, renderer: (item) => {
-  cardsPack.addItem(renderCard(item, cardTemplate))},cardsContainer});
+  renderCard(item, cardTemplate)}, cardsContainer});
 
 cardsPack.renderAllItems();
 
 //форма добавления карточки
-//todo привести в соответствии с handler, бросать нужный параметр
-const addCard = new PopupWithForm(popupAdd, (imageData) => {
-  cardsPack.addItem(renderCard(imageData, cardTemplate));
-  cardsPack.close();
-})
+const addCard = new PopupWithForm(popupAdd, (item) => {
+  const imageData = {name: item.title, link: item.link,};
+  renderCard(imageData, cardTemplate)});
+
 
 //обработчики к редактированию
-
 addCard.setEventListeners();
 
 // //кнопка для редактирования
@@ -103,40 +95,3 @@ popupAddButton.addEventListener('click', () => {
   addCard.open();
   formValidatorForAdd.resetSubmitButton();
 });
-
-// //submit for adding images
-// function submitCardAdd(evt) {
-//   evt.preventDefault();
-
-//   const imageObject = {
-//     name: cardNameInput.value,
-//     link: cardLinkInput.value,
-//   };
-
-//   renderCard(imageObject, cardTemplate);
-//   closePopup(popupAdd);
-//   evt.target.reset();
-// }
-
-// //listeners to open
-
-
-
-// //listeners to close
-// // popupWindows.forEach((popupWindow) => {
-// //   popupWindow.addEventListener('mousedown', (evt) => {
-// //     if (evt.target.classList.contains('popup_opened')) {
-// //       closePopup(popupWindow)
-// //     }
-// //     if (evt.target.classList.contains('popup__close-button')) {
-// //       closePopup(popupWindow)
-// //     }
-// //   })
-// // })
-
-// //listeners to submit
-
-// // //render of massive
-// // initialCards.forEach(function (initialCard) {
-// //   renderCard(initialCard, cardTemplate);
-// // });
