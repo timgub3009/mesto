@@ -24,8 +24,6 @@ const popupAddButton = document.querySelector('.profile__add-button');
 const cardsContainer = document.querySelector('.elements__table');
 const cardTemplate = document.querySelector('.elements-template').content;
 const popupZoomImage = document.querySelector('.popup_type_closeup');
-const popupImage = popupZoomImage.querySelector('.popup__image');
-const popupImageCaption = popupZoomImage.querySelector('.popup__figcaption');
 
 //object for validation
 const validationConfig = {
@@ -37,14 +35,13 @@ const validationConfig = {
   errorClass: 'popup__error_active',
 };
 
-const popupWithImage = new PopupWithImage(popupZoomImage, popupImage, popupImageCaption);
+const popupWithImage = new PopupWithImage(popupZoomImage);
 
 popupWithImage.setEventListeners();
 
 //add a card to the list
 const renderCard = function (item, template) {
-  const card = new Card(item, template);
-  popupWithImage.open(item.popupImage, item.popupImageCaption);
+  const card = new Card( {item, handleCardClick: () => {popupWithImage.open(item.name, item.link);}}, template);
   cardsContainer.prepend(card._generateCard());
 }
 
@@ -63,7 +60,8 @@ const userInfo = new UserInfo({
 
 //форма редактирования профиля пользователя
 const editProfile = new PopupWithForm(popupEdit, (userData) => {
-  userInfo.setUserInfo(userData)
+  userInfo.setUserInfo(userData);
+  editProfile.close();
 })
 
 const cardsPack = new Section({items: initialCards, renderer: (item) => {
@@ -73,9 +71,9 @@ cardsPack.renderAllItems();
 
 //форма добавления карточки
 const addCard = new PopupWithForm(popupAdd, (item) => {
-  const imageData = {name: item.title, link: item.link,};
-  renderCard(imageData, cardTemplate)});
-
+  const imageData = {name: item.name, link: item.link};
+  renderCard(imageData, cardTemplate);
+  addCard.close();});
 
 //обработчики к редактированию
 addCard.setEventListeners();
