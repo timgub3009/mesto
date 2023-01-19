@@ -6,7 +6,7 @@ export default class PopupWithForm extends Popup {
     this._formPopup = this._popupSelector.querySelector('.popup__form');
     this._handleFormSubmit = handleFormSubmit;
   }
-
+//вытащить данные инпутов
   _getInputValues() {
     this._inputList = this._formPopup.querySelectorAll('.popup__input');
 
@@ -15,7 +15,7 @@ export default class PopupWithForm extends Popup {
 
     return this._formValues;
   }
-
+//навесить слушателей по клику на сабмит
   setEventListeners() {
 
     this._formPopup.addEventListener('submit', () => {

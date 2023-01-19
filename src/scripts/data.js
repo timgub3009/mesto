@@ -1,4 +1,4 @@
-//array of cards to add
+//массив карточек
 const initialCards = [
   {
     name: 'Архыз',

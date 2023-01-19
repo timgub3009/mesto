@@ -6,12 +6,12 @@ export default class Card {
     this._handleCardClick = handleCardClick;
   }
 
-  //get template
+  //забрать шаблон
   _getTemplate() {
     const cardElement = this._templateSelector.querySelector('.elements__card').cloneNode(true);
     return cardElement;
   }
-  //creation of the card on the basis of template
+  //создание карточки
   _generateCard() {
     this._element = this._getTemplate();
 
@@ -23,7 +23,7 @@ export default class Card {
 
     return this._element;
   }
-  //all three methods (likes, deletions, closeups)
+  //2 метода
   _likeCounter = function (evt) {
     evt.target.classList.toggle('elements__like-button_type_active');
   }
@@ -32,7 +32,7 @@ export default class Card {
     evt.target.closest('.elements__card').remove();
   }
 
-  //setting eventlisteners on buttons
+  //слушатели к карточкам
   _setEventListeners() {
     this._likeButton = this._element.querySelector('.elements__like-button');
     this._deleteButton = this._element.querySelector('.elements__delete-button');

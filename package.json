@@ -1,7 +1,7 @@
 {
   "name": "mesto",
   "version": "1.0.0",
-  "description": "project for learning",
+  "description": "learning project",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/timgub3009/mesto.git"
   },
-  "author": "timur gubeidulin",
+  "author": "timgub",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/timgub3009/mesto/issues"
@@ -33,6 +33,6 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "core-js": "^3.27.1"
+    "core-js": "^3.27.2"
   }
 }

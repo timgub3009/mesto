@@ -10,13 +10,13 @@ export default class FormValidator {
     this._submitButtonElement = this._form.querySelector(this._submitButtonSelector);
   }
 
-  //validation method (not private)
+  //валидация после сабмита
   enableValidation() {
     this._form.addEventListener('submit', (evt) => evt.preventDefault());
     this._setEventListeners();
   }
 
-  //method for showing errors
+  //демонстрация ошибки в инпуте
   _showError(input) {
     const errorElement = this._form.querySelector(`#${input.id}-error`);
     input.classList.add(this._inputErrorClass);
@@ -24,7 +24,7 @@ export default class FormValidator {
     errorElement.textContent = input.validationMessage;
   }
 
-  //method for hiding errors
+  //скрытие ошибки в инпуте
   _hideError(input) {
     const errorElement = this._form.querySelector(`#${input.id}-error`);
     input.classList.remove(this._inputErrorClass);
@@ -32,7 +32,7 @@ export default class FormValidator {
     errorElement.textContent = "";
   };
 
-  //method for checking inputs whether it's ok or not
+  //метод проверить валидность и показать/не показать ошибку
   _checkValidity(input) {
     if (!input.validity.valid) {
       this._showError(input);
@@ -41,7 +41,7 @@ export default class FormValidator {
     }
   };
 
-  //method for changing status of the button
+  //метод для замены статуса кнопки
   _toggleButtonState(inputs, submitButtonElement) {
     if (inputs.some((input) => !input.validity.valid)) {
       submitButtonElement.classList.add(this._inactiveButtonClass);
@@ -52,19 +52,19 @@ export default class FormValidator {
     }
   };
 
-  //reset for button (add)
+  //рисет на кнопку добавления карточки
   resetSubmitButton() {
     this._toggleButtonState(this._inputs, this._submitButtonElement);
   }
 
-  //reset for form (edit)
+  //рисет на форму профиля
   resetFormValidation() {
     this._inputs.forEach((input) => {
       this._hideError(input);
     });
   }
 
-  //setting event listeners in one method (checkvalidity + button state)
+  //слушатели валидности
   _setEventListeners() {
     this._inputs.forEach((input) => {
       input.addEventListener('input', () => {
