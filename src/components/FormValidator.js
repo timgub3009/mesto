@@ -52,13 +52,10 @@ export default class FormValidator {
     }
   };
 
-  //рисет на кнопку добавления карточки
-  resetSubmitButton() {
+  //рисет на форму и кнопку
+  resetValidation() {
     this._toggleButtonState(this._inputs, this._submitButtonElement);
-  }
 
-  //рисет на форму профиля
-  resetFormValidation() {
     this._inputs.forEach((input) => {
       this._hideError(input);
     });

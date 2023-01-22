@@ -1,18 +1,18 @@
 export default class Card {
-  constructor( {item, handleCardClick}, template) {
+  constructor({ item, handleCardClick }, template) {
     this._name = item.name;
     this._link = item.link;
-    this._templateSelector = template;
+    this._template = template;
     this._handleCardClick = handleCardClick;
   }
 
   //забрать шаблон
   _getTemplate() {
-    const cardElement = this._templateSelector.querySelector('.elements__card').cloneNode(true);
+    const cardElement = this._template.querySelector('.elements__card').cloneNode(true);
     return cardElement;
   }
   //создание карточки
-  _generateCard() {
+  generateCard() {
     this._element = this._getTemplate();
 
     this._setEventListeners();
@@ -24,7 +24,7 @@ export default class Card {
     return this._element;
   }
   //2 метода
-  _likeCounter = function (evt) {
+  _countLikes = function (evt) {
     evt.target.classList.toggle('elements__like-button_type_active');
   }
 
@@ -38,7 +38,7 @@ export default class Card {
     this._deleteButton = this._element.querySelector('.elements__delete-button');
     this._cardImage = this._element.querySelector('.elements__image');
 
-    this._likeButton.addEventListener('click', (evt) => this._likeCounter(evt));
+    this._likeButton.addEventListener('click', (evt) => this._countLikes(evt));
     this._deleteButton.addEventListener('click', (evt) => this._sendToTrash(evt));
     this._cardImage.addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }

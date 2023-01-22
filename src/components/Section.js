@@ -4,15 +4,16 @@ export default class Section {
     this._renderer = renderer;
     this._container = containerSelector;
   }
-//рисовка элементов
+  //рисовка элементов
   renderAllItems() {
     this._items.forEach(item => {
-      this._renderer(item)
+      this.addItem(item)
     });
   }
-//добавление
+  //добавление
   addItem(element) {
-    this._container.prepend(element)
+    const card = this._renderer(element);
+    this._container.prepend(card)
   }
 }
 
