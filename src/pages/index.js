@@ -1,4 +1,4 @@
-// import './index.css'; // добавьте импорт главного файла стилей
+import './index.css';
 
 //импорты классов + карточек
 import Card from '../components/Card.js';
