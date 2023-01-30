@@ -2,15 +2,19 @@
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
 const popupZoomImage = document.querySelector('.popup_type_closeup');
+const popupChangeAvatar = document.querySelector('.popup_type_avatar-edit');
+const popupConfirmRemoval= document.querySelector('.popup_type_confirm-removal');
 
 //инпуты к попапу профиля
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__subtitle');
+const profileAvatar = document.querySelector('.profile__avatar');
 
 
 //кнопки для открытия попапов
 const popupEditButton = document.querySelector('.profile__edit-button');
 const popupAddButton = document.querySelector('.profile__add-button');
+const popupChangeAvatarButton = document.querySelector('.profile__avatar-edit-button');
 
 //контейнер
 const cardsContainer = document.querySelector('.elements__table');
@@ -29,5 +33,5 @@ const validationConfig = {
 };
 
 export {
-  popupEdit, popupAdd, popupZoomImage, profileName, profileJob, popupEditButton, popupAddButton, cardsContainer, cardTemplate, validationConfig
+  popupEdit, popupAdd, popupZoomImage, popupChangeAvatar, popupConfirmRemoval, profileName, profileJob, profileAvatar, popupEditButton, popupAddButton, popupChangeAvatarButton, cardsContainer, cardTemplate, validationConfig
 }
