@@ -1,9 +1,21 @@
 export default class Card {
-  constructor({ item, handleCardClick }, template) {
-    this._name = item.name;
-    this._link = item.link;
-    this._template = template;
+  constructor(
+    data,
+    handleCardClick,
+    handleLikeClick,
+    handleDeleteIconClick,
+    template
+  ) {
+    this._name = data.name;
+    this._link = data.link;
+    this._likes = data.likes;
+    this._cardId = data._id;
+    this._ownerId = data.owner._id;
+    this._userId = userId;
+    this._handleLikeClick = handleLikeClick;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteIconClick = handleDeleteIconClick;
+    this._template = template;
   }
 
   //забрать шаблон
@@ -11,7 +23,8 @@ export default class Card {
     const cardElement = this._template.querySelector('.elements__card').cloneNode(true);
     return cardElement;
   }
-  //создание карточки
+
+  //создание карточки (добавлены лайки)
   generateCard() {
     this._element = this._getTemplate();
 
@@ -21,15 +34,44 @@ export default class Card {
     this._cardImage.src = this._link;
     this._element.querySelector('.elements__card-heading').textContent = this._name;
 
+    this.countLikes();
+
+    this.removeDeleteBtn();
+
     return this._element;
   }
-  //2 метода
-  _countLikes = function (evt) {
-    evt.target.classList.toggle('elements__like-button_type_active');
+
+  //метод удаления "удаления"
+  removeDeleteBtn() {
+    this._trash = this._element.querySelector('.elements__delete-button');
+    if (this._ownerId != this.userId) {
+      this._trash.remove();
+    }
+  }
+  //обновление полученных данных по лайкам
+  updateCount(updatedData) {
+    this._likes = updatedData.likes;
   }
 
-  _sendToTrash = function (evt) {
-    evt.target.closest('.elements__card').remove();
+  //закрашивание лайка и счетчик
+  countLikes() {
+    this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
+    if (this.hasLike()) {
+      this._likeButton.classList.add('elements__like-button_type_active');
+    }
+    else {
+      this._likeButton.classList.remove('elements__like-button_type_active');
+    }
+  }
+
+  //проверить, есть ли уже лайк от указанного айди (пользователя) или нет
+  hasLike() {
+    return this._likes.some((like) => like._id === this.userId)
+  }
+
+  //метод удаления карточки
+  sendToTrash() {
+    this._element.remove();
   }
 
   //слушатели к карточкам
@@ -38,8 +80,8 @@ export default class Card {
     this._deleteButton = this._element.querySelector('.elements__delete-button');
     this._cardImage = this._element.querySelector('.elements__image');
 
-    this._likeButton.addEventListener('click', (evt) => this._countLikes(evt));
-    this._deleteButton.addEventListener('click', (evt) => this._sendToTrash(evt));
+    this._likeButton.addEventListener('click', () => this._handleLikeClick());
+    this._deleteButton.addEventListener('click', () => this._handleDeleteIconClick());
     this._cardImage.addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }
 }

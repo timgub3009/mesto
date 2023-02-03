@@ -5,8 +5,8 @@ export default class Section {
     this._container = containerSelector;
   }
   //рисовка элементов
-  renderAllItems() {
-    this._items.forEach(item => {
+  renderAllItems(items) {
+    items.forEach(item => {
       this.addItem(item)
     });
   }
