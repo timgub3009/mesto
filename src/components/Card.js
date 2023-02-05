@@ -1,6 +1,8 @@
 export default class Card {
   constructor(
     data,
+    userId,
+    ownerId,
     handleCardClick,
     handleLikeClick,
     handleDeleteIconClick,
@@ -10,7 +12,7 @@ export default class Card {
     this._link = data.link;
     this._likes = data.likes;
     this._cardId = data._id;
-    this._ownerId = data.owner._id;
+    this._ownerId = ownerId;
     this._userId = userId;
     this._handleLikeClick = handleLikeClick;
     this._handleCardClick = handleCardClick;
@@ -44,18 +46,18 @@ export default class Card {
   //метод удаления "удаления"
   removeDeleteBtn() {
     this._trash = this._element.querySelector('.elements__delete-button');
-    if (this._ownerId != this.userId) {
+    if (this._ownerId != this._userId) {
       this._trash.remove();
     }
   }
   //обновление полученных данных по лайкам
   updateCount(updatedData) {
     this._likes = updatedData.likes;
+    this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
   }
 
   //закрашивание лайка и счетчик
   countLikes() {
-    this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
     if (this.hasLike()) {
       this._likeButton.classList.add('elements__like-button_type_active');
     }
@@ -66,7 +68,7 @@ export default class Card {
 
   //проверить, есть ли уже лайк от указанного айди (пользователя) или нет
   hasLike() {
-    return this._likes.some((like) => like._id === this.userId)
+    return (this._likes || []).find((like) => like._id === this._userId)
   }
 
   //метод удаления карточки

@@ -4,9 +4,9 @@ export default class Api {
     this._headers = options.headers;
   }
 
-  checkStatus() {
+  _checkStatus(res) {
     if (res.ok) {
-      return res.JSON();
+      return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   }
@@ -16,7 +16,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-      .then(this.checkStatus);
+      .then(this._checkStatus);
   }
 
   getInitialCards() {
@@ -24,31 +24,31 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-      .then(this.checkStatus);
+      .then(this._checkStatus);
   }
 
-  editProfile(profileName, profileDescription) {
+  editProfile({name, description}) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: profileName,
-        about: profileDescription
+        name: name,
+        about: description
       })
     })
-      .then(this.checkStatus);
+      .then(this._checkStatus);
   }
 
-  addCard(cardName, cardLink) {
+  addCard({title, link}) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: cardName,
-        link: cardLink
+        name: title,
+        link: link
       })
     })
-      .then(this.checkStatus);
+      .then(this._checkStatus);
   }
 
   deleteCard(id) {
@@ -56,7 +56,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(this.checkStatus);
+      .then(this._checkStatus);
   }
 
   putLike(id) {
@@ -64,7 +64,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers
     })
-      .then(this.checkStatus);
+      .then(this._checkStatus);
   }
 
   removeLike(id) {
@@ -72,17 +72,17 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(this.checkStatus);
+      .then(this._checkStatus);
   }
 
-  changeAvatar(avatarLink) {
+  changeAvatar({avatar}) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatarLink
+        avatar: avatar
       })
     })
-      .then(this.checkStatus);
+      .then(this._checkStatus);
   }
 }

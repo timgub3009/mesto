@@ -16,6 +16,12 @@ export default class UserInfo {
     this._name.textContent = userData.name;
     this._description.textContent = userData.description;
     this.setUserAvatar(userData);
+    this._userId = userData._id;
+  }
+
+  //получить айдишник юзера
+  getId() {
+    return this._userId;
   }
 
   //установить аватарку

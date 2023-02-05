@@ -1,7 +1,6 @@
 
 //импорты классов + карточек
 import Card from '../components/Card.js';
-import initialCards from '../utils/data.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -23,13 +22,9 @@ const api = new Api(
   }
 )
 
-let userId;
-
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, imageData]) => {
     userInfo.setUserInfo(userData);
-    userId = userData._id;
-
     cardsPack.renderAllItems(imageData);
   })
 
@@ -60,61 +55,65 @@ const popupWithConfirmation = new PopupWithConfirmation(popupConfirmRemoval);
 //слушатели к нему
 popupWithConfirmation.setEventListeners();
 
-//создание экземпляра Section (создание Card после изменений в Section перенесено сюда)
-const cardsPack = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = new Card(
+//создание экземпляра Section
+const cardsPack = new Section((item) => createCard(item), cardsContainer)
 
-      item,
+//создание карточки
+const createCard = (item) => {
+  const card = new Card(
 
-      () => {
-        popupWithImage.open(item.name, item.link);
-      },
+    item,
 
-      () => {
-        if (!card.hasLike()) {
-          api
-            .putLike(item._id)
-            .then((item) => {
-              card.countLikes();
-              card.updateCount(item);
-            })
-            .catch((err) => {
-              console.log(err);
-            })
-        }
-        else {
-          api
-            .removeLike(item._id)
-            .then((item) => {
-              card.countLikes();
-              card.updateCount(item);
-            })
-            .catch((err) => {
-              console.log(err);
-            })
-        }
-      },
+    userInfo.getId(),
 
-      () => {
-        popupWithConfirmation.confirmDeleting(() => {
-          popupWithConfirmation.renderLoading(true);
-          api
-            .deleteCard(item._id)
-            .then(() => {
-              card.sendToTrash();
-              popupWithConfirmation.close();
-            })
-            .catch((err) => {
-              console.log(err);
-            })
-        })
-      },
-      cardTemplate);
-    return card.generateCard();
-  }
-}, cardsContainer);
+    item.ownerId,
+
+    () => {
+      popupWithImage.open(item.name, item.link);
+    },
+
+    () => {
+      if (!card.hasLike()) {
+        api
+          .putLike(item._id)
+          .then((item) => {
+            card.countLikes();
+            card.updateCount(item);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+      else {
+        api
+          .removeLike(item._id)
+          .then((item) => {
+            card.countLikes();
+            card.updateCount(item);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+    },
+
+    () => {
+      popupWithConfirmation.confirmDeleting(() => {
+        popupWithConfirmation.renderLoading(true);
+        api
+          .deleteCard(item._id)
+          .then(() => {
+            card.sendToTrash();
+            popupWithConfirmation.close();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      })
+    },
+    cardTemplate);
+  return card.generateCard();
+}
 
 //профиль пользователя
 const userInfo = new UserInfo({
@@ -124,41 +123,51 @@ const userInfo = new UserInfo({
 });
 
 //форма редактирования профиля пользователя
-const editProfile = new PopupWithForm(popupEdit, (userData) => {
-  popupEdit.renderLoading(true);
+const editProfile = new PopupWithForm(popupEdit, (item) => {
+  editProfile.renderLoading(true);
   api
-    .editProfile(userData)
+    .editProfile(item)
     .then((userData) => {
       userInfo.setUserInfo(userData);
     })
     .catch((err) => {
       console.log(err);
     })
+    .finally(() => {
+      editProfile.renderLoading(false);
+    })
 })
 
 //форма добавления карточки
-const addCard = new PopupWithForm(popupAdd, (imageData) => {
+const addCard = new PopupWithForm(popupAdd, (item) => {
   addCard.renderLoading(true);
   api
-    .addCard(imageData)
-    .then((imageData) => {
+    .addCard(item)
+    .then((item) => {
+      const imageData = { name: item.name, link: item.link }
       cardsPack.addItem(imageData);
     })
     .catch((err) => {
       console.log(err);
     })
+    .finally(() => {
+      addCard.renderLoading(false);
+    })
 });
 
 //форма работы с аватаркой
-const changeAvatar = new PopupWithForm(popupChangeAvatar, (userData) => {
-  popupChangeAvatar.renderLoading(true);
+const changeAvatar = new PopupWithForm(popupChangeAvatar, (item) => {
+  changeAvatar.renderLoading(true);
   api
-    .changeAvatar(userData)
+    .changeAvatar(item)
     .then((userData) => {
       userInfo.setUserAvatar(userData);
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      changeAvatar.renderLoading(false);
     })
 });
 
