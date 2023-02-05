@@ -56,7 +56,7 @@ const popupWithConfirmation = new PopupWithConfirmation(popupConfirmRemoval);
 popupWithConfirmation.setEventListeners();
 
 //создание экземпляра Section
-const cardsPack = new Section((item) => createCard(item), cardsContainer)
+const cardsPack = new Section((item) => createCard(item), cardsContainer);
 
 //создание карточки
 const createCard = (item) => {
@@ -73,12 +73,12 @@ const createCard = (item) => {
     },
 
     () => {
-      if (!card.hasLike()) {
+      if (card.hasLike()) {
         api
-          .putLike(item._id)
+          .removeLike(item._id)
           .then((item) => {
-            card.countLikes();
             card.updateCount(item);
+            card.countLikes();
           })
           .catch((err) => {
             console.log(err);
@@ -86,10 +86,10 @@ const createCard = (item) => {
       }
       else {
         api
-          .removeLike(item._id)
+          .putLike(item._id)
           .then((item) => {
-            card.countLikes();
             card.updateCount(item);
+            card.countLikes();
           })
           .catch((err) => {
             console.log(err);
@@ -136,6 +136,7 @@ const editProfile = new PopupWithForm(popupEdit, (item) => {
     .finally(() => {
       editProfile.renderLoading(false);
     })
+    editProfile.close();
 })
 
 //форма добавления карточки
@@ -153,6 +154,7 @@ const addCard = new PopupWithForm(popupAdd, (item) => {
     .finally(() => {
       addCard.renderLoading(false);
     })
+    addCard.close();
 });
 
 //форма работы с аватаркой
@@ -169,6 +171,7 @@ const changeAvatar = new PopupWithForm(popupChangeAvatar, (item) => {
     .finally(() => {
       changeAvatar.renderLoading(false);
     })
+    changeAvatar.close();
 });
 
 //обработчики к новой карточке

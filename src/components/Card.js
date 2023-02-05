@@ -50,6 +50,27 @@ export default class Card {
       this._trash.remove();
     }
   }
+  // //обновление полученных данных по лайкам
+  // updateCount(updatedData) {
+  //   this._likes = updatedData.likes;
+  //   this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
+  // }
+
+  // //закрашивание лайка и счетчик
+  // countLikes() {
+  //   if (this.hasLike()) {
+  //     this._likeButton.classList.add('elements__like-button_type_active');
+  //   }
+  //   else {
+  //     this._likeButton.classList.remove('elements__like-button_type_active');
+  //   }
+  // }
+
+  // //проверить, есть ли уже лайк от указанного айди (пользователя) или нет
+  // hasLike() {
+  //   return this._likes.find((like) => like._id === this._userId)
+  // }
+
   //обновление полученных данных по лайкам
   updateCount(updatedData) {
     this._likes = updatedData.likes;
@@ -60,16 +81,19 @@ export default class Card {
   countLikes() {
     if (this.hasLike()) {
       this._likeButton.classList.add('elements__like-button_type_active');
+      this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
     }
     else {
       this._likeButton.classList.remove('elements__like-button_type_active');
+      this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
     }
   }
 
   //проверить, есть ли уже лайк от указанного айди (пользователя) или нет
   hasLike() {
-    return (this._likes || []).find((like) => like._id === this._userId)
+    return this._likes.find((like) => like._id === this._userId)
   }
+
 
   //метод удаления карточки
   sendToTrash() {
