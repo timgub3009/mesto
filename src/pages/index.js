@@ -67,10 +67,10 @@ const createCard = (item) => {
       popupWithImage.open(item.name, item.link);
     },
 
-    handleLikeClick: ()  =>   {
+    handleLikeClick: (id)  =>   {
       if (card.hasLike()) {
       api
-        .removeLike(item._id)
+        .removeLike(id)
         .then((item) => {
           card.updateCount(item);
           card.countLikes();
@@ -81,7 +81,7 @@ const createCard = (item) => {
     }
     else {
       api
-        .setLike(item._id)
+        .setLike(id)
         .then((item) => {
           card.updateCount(item);
           card.countLikes();
@@ -92,11 +92,11 @@ const createCard = (item) => {
     }
   },
 
-    handleDeleteIconClick: () => {
+    handleDeleteIconClick: (id) => {
       popupWithConfirmation.confirmDeleting(() => {
         popupWithConfirmation.renderLoading(true);
         api
-        .deleteCard(item._id)
+        .deleteCard(id)
         .then(() => {
           card.sendToTrash();
           popupWithConfirmation.close();
@@ -149,7 +149,6 @@ const addCard = new PopupWithForm(popupAdd, (item) => {
     .addCard(item)
     .then((item) => {
       const imageData = { name: item.name, link: item.link, id: item._id, owner: item.owner._id, likes: [] };
-      console.log(imageData);
       cardsPack.addItem(imageData);
     })
     .catch((err) => {
