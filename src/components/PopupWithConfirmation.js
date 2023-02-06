@@ -12,7 +12,7 @@ export default class PopupWithConfirmation extends Popup {
   //статус загрузки
   renderLoading(isLoading) {
     if (isLoading) {
-      this._popupButton.textContent = 'Сохранение...';
+      this._popupButton.textContent = 'Удаление...';
     }
     else {
       this._popupButton.textContent = this._popupButtonText;
@@ -25,7 +25,8 @@ export default class PopupWithConfirmation extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupButton.addEventListener('click', () => {
+    this._formPopup.addEventListener('submit', (evt) => {
+      evt.preventDefault();
       this._handleConfirmation();
     })
 

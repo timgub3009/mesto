@@ -16,6 +16,10 @@ const popupEditButton = document.querySelector('.profile__edit-button');
 const popupAddButton = document.querySelector('.profile__add-button');
 const popupChangeAvatarButton = document.querySelector('.profile__avatar-edit-button');
 
+const likeButton = document.querySelector('.elements__like-button');
+const deleteButton = document.querySelector('.elements__delete-button');
+const likeCounter = document.querySelector('.elements__like-counter');
+
 //контейнер
 const cardsContainer = document.querySelector('.elements__table');
 
@@ -33,5 +37,5 @@ const validationConfig = {
 };
 
 export {
-  popupEdit, popupAdd, popupZoomImage, popupChangeAvatar, popupConfirmRemoval, profileName, profileJob, profileAvatar, popupEditButton, popupAddButton, popupChangeAvatarButton, cardsContainer, cardTemplate, validationConfig
+  popupEdit, popupAdd, popupZoomImage, popupChangeAvatar, popupConfirmRemoval, profileName, profileJob, profileAvatar, popupEditButton, popupAddButton, popupChangeAvatarButton, cardsContainer, cardTemplate, validationConfig, likeButton, deleteButton, likeCounter
 }

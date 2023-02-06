@@ -8,7 +8,7 @@ import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import Api from '../components/Api.js'
-import { popupEdit, popupAdd, popupZoomImage, popupConfirmRemoval, popupChangeAvatar, profileName, profileJob, profileAvatar, popupEditButton, popupAddButton, cardsContainer, cardTemplate, validationConfig, popupChangeAvatarButton } from '../utils/constants.js';
+import { popupEdit, popupAdd, popupZoomImage, popupConfirmRemoval, popupChangeAvatar, profileName, profileJob, profileAvatar, popupEditButton, popupAddButton, cardsContainer, cardTemplate, validationConfig, popupChangeAvatarButton, likeButton, deleteButton, likeCounter } from '../utils/constants.js';
 
 //подключение api
 const api = new Api(
@@ -60,65 +60,68 @@ const cardsPack = new Section((item) => createCard(item), cardsContainer);
 
 //создание карточки
 const createCard = (item) => {
-  const card = new Card(
+  const card = new Card({
+    data: item,
 
-    item,
-
-    userInfo.getId(),
-
-    item.ownerId,
-
-    () => {
+    handleCardClick: () => {
       popupWithImage.open(item.name, item.link);
     },
 
-    () => {
+    handleLikeClick: ()  =>   {
       if (card.hasLike()) {
-        api
-          .removeLike(item._id)
-          .then((item) => {
-            card.updateCount(item);
-            card.countLikes();
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      }
-      else {
-        api
-          .putLike(item._id)
-          .then((item) => {
-            card.updateCount(item);
-            card.countLikes();
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      }
-    },
+      api
+        .removeLike(item._id)
+        .then((item) => {
+          card.updateCount(item);
+          card.countLikes();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+    else {
+      api
+        .setLike(item._id)
+        .then((item) => {
+          card.updateCount(item);
+          card.countLikes();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  },
 
-    () => {
+    handleDeleteIconClick: () => {
       popupWithConfirmation.confirmDeleting(() => {
         popupWithConfirmation.renderLoading(true);
         api
-          .deleteCard(item._id)
-          .then(() => {
-            card.sendToTrash();
-            popupWithConfirmation.close();
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      })
+        .deleteCard(item._id)
+        .then(() => {
+          card.sendToTrash();
+          popupWithConfirmation.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => popupWithConfirmation.renderLoading(false))
+      });
+      popupWithConfirmation.open();
     },
-    cardTemplate);
+  },
+
+  cardTemplate,
+
+  userInfo.getId()
+
+  );
   return card.generateCard();
 }
 
 //профиль пользователя
 const userInfo = new UserInfo({
   name: profileName,
-  description: profileJob,
+  about: profileJob,
   avatar: profileAvatar
 });
 
@@ -128,6 +131,7 @@ const editProfile = new PopupWithForm(popupEdit, (item) => {
   api
     .editProfile(item)
     .then((userData) => {
+      console.log(userData);
       userInfo.setUserInfo(userData);
     })
     .catch((err) => {

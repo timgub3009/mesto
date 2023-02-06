@@ -27,13 +27,13 @@ export default class Api {
       .then(this._checkStatus);
   }
 
-  editProfile({name, description}) {
+  editProfile({name, about}) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name: name,
-        about: description
+        about: about
       })
     })
       .then(this._checkStatus);
@@ -59,7 +59,7 @@ export default class Api {
       .then(this._checkStatus);
   }
 
-  putLike(id) {
+  setLike(id) {
     return fetch(`${this._url}/cards/${id}/likes`, {
       method: 'PUT',
       headers: this._headers

@@ -1,20 +1,20 @@
 export default class UserInfo {
-  constructor({ name, description, avatar }) {
+  constructor({ name, about, avatar }) {
     this._name = name;
-    this._description = description;
+    this._about = about;
     this._avatar = avatar;
   }
   //забрать инфу профиля (которая уже есть)
   getUserInfo() {
     return {
       name: this._name.textContent,
-      description: this._description.textContent
+      about: this._about.textContent
     }
   }
   //заполнить поля профиля введенной информацией
   setUserInfo(userData) {
     this._name.textContent = userData.name;
-    this._description.textContent = userData.description;
+    this._about.textContent = userData.about;
     this.setUserAvatar(userData);
     this._userId = userData._id;
   }
