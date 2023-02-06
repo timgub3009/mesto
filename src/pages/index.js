@@ -131,7 +131,6 @@ const editProfile = new PopupWithForm(popupEdit, (item) => {
   api
     .editProfile(item)
     .then((userData) => {
-      console.log(userData);
       userInfo.setUserInfo(userData);
     })
     .catch((err) => {
@@ -149,7 +148,8 @@ const addCard = new PopupWithForm(popupAdd, (item) => {
   api
     .addCard(item)
     .then((item) => {
-      const imageData = { name: item.name, link: item.link }
+      const imageData = { name: item.name, link: item.link, id: item._id, owner: item.owner._id, likes: [] };
+      console.log(imageData);
       cardsPack.addItem(imageData);
     })
     .catch((err) => {

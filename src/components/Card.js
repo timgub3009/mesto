@@ -41,7 +41,6 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._cardImage.src = this._link;
     this._element.querySelector('.elements__card-heading').textContent = this._name;
-    this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
 
     this.removeDeleteButton();
 
