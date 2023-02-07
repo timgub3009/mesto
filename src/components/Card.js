@@ -19,7 +19,6 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
     this._template = template;
-
   }
 
   //забрать шаблон
@@ -28,11 +27,12 @@ export default class Card {
     return cardElement;
   }
 
+  //удаление карточки
   sendToTrash() {
     this._element.closest('.elements__card').remove();
   }
 
-  //создание карточки (добавлены лайки)
+  //создание карточки
   generateCard() {
     this._element = this._getTemplate();
 
@@ -54,10 +54,10 @@ export default class Card {
   //метод удаления "удаления"
   removeDeleteButton() {
     if (this._ownerId != this._userId) {
-    this._deleteButton.removeEventListener('click', () => this._handleDeleteIconClick());
-    this._deleteButton.style.display = 'none';
+      this._deleteButton.removeEventListener('click', () => this._handleDeleteIconClick());
+      this._deleteButton.style.display = 'none';
+    }
   }
-}
 
   //обновление полученных данных по лайкам
   updateCount(updatedData) {

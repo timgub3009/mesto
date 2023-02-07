@@ -27,7 +27,7 @@ export default class Api {
       .then(this._checkStatus);
   }
 
-  editProfile({name, about}) {
+  editProfile({ name, about }) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -39,7 +39,7 @@ export default class Api {
       .then(this._checkStatus);
   }
 
-  addCard({title, link}) {
+  addCard({ title, link }) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
@@ -75,7 +75,7 @@ export default class Api {
       .then(this._checkStatus);
   }
 
-  changeAvatar({avatar}) {
+  changeAvatar({ avatar }) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,

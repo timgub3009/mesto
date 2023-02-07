@@ -9,7 +9,7 @@ export default class PopupWithConfirmation extends Popup {
     this._popupButtonText = this._popupButton.textContent;
   }
 
-  //статус загрузки
+  //статус удаления
   renderLoading(isLoading) {
     if (isLoading) {
       this._popupButton.textContent = 'Удаление...';
@@ -18,17 +18,18 @@ export default class PopupWithConfirmation extends Popup {
       this._popupButton.textContent = this._popupButtonText;
     }
   }
+
   //колбэк для удаления
   confirmDeleting(confirm) {
     this._handleConfirmation = confirm;
   }
 
+  //слушатели
   setEventListeners() {
     super.setEventListeners();
     this._formPopup.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleConfirmation();
     })
-
   }
 }

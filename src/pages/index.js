@@ -1,3 +1,4 @@
+import './index.css';
 
 //импорты классов + карточек
 import Card from '../components/Card.js';
@@ -8,7 +9,7 @@ import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import Api from '../components/Api.js'
-import { popupEdit, popupAdd, popupZoomImage, popupConfirmRemoval, popupChangeAvatar, profileName, profileJob, profileAvatar, popupEditButton, popupAddButton, cardsContainer, cardTemplate, validationConfig, popupChangeAvatarButton, likeButton, deleteButton, likeCounter } from '../utils/constants.js';
+import { popupEdit, popupAdd, popupZoomImage, popupConfirmRemoval, popupChangeAvatar, profileName, profileJob, profileAvatar, popupEditButton, popupAddButton, cardsContainer, cardTemplate, validationConfig, popupChangeAvatarButton } from '../utils/constants.js';
 
 //подключение api
 const api = new Api(
@@ -22,6 +23,7 @@ const api = new Api(
   }
 )
 
+//первоначальная прогрузка
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, imageData]) => {
     userInfo.setUserInfo(userData);
@@ -29,7 +31,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     cardsPack.renderAllItems(imageData);
   })
 
-  let userId;
+//переменная, чтобы потом передать ее в новую карточку
+let userId;
 
 // включение валидации (универсальное)
 const formValidators = {};
@@ -65,57 +68,57 @@ const cardsPack = new Section((item) => createCard(item), cardsContainer);
 const createCard = (item) => {
   const card = new Card({
     data: item,
-
+    //что происходит при клике по карточке
     handleCardClick: () => {
       popupWithImage.open(item.name, item.link);
     },
-
-    handleLikeClick: (id)  =>   {
+    //что происходит при клике по лайку
+    handleLikeClick: (id) => {
       if (card.hasLike()) {
-      api
-        .removeLike(id)
-        .then((item) => {
-          card.updateCount(item);
-          card.countLikes();
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
-    else {
-      api
-        .setLike(id)
-        .then((item) => {
-          card.updateCount(item);
-          card.countLikes();
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
-  },
-
+        api
+          .removeLike(id)
+          .then((item) => {
+            card.updateCount(item);
+            card.countLikes();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+      else {
+        api
+          .setLike(id)
+          .then((item) => {
+            card.updateCount(item);
+            card.countLikes();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+    },
+    //что происходит если кликаем по ведру
     handleDeleteIconClick: (id) => {
       popupWithConfirmation.confirmDeleting(() => {
         popupWithConfirmation.renderLoading(true);
         api
-        .deleteCard(id)
-        .then(() => {
-          card.sendToTrash();
-          popupWithConfirmation.close();
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => popupWithConfirmation.renderLoading(false))
+          .deleteCard(id)
+          .then(() => {
+            card.sendToTrash();
+            popupWithConfirmation.close();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => popupWithConfirmation.renderLoading(false))
       });
       popupWithConfirmation.open();
     },
   },
 
-  cardTemplate,
+    cardTemplate,
 
-  userId
+    userId
 
   );
   return card.generateCard();
@@ -142,7 +145,7 @@ const editProfile = new PopupWithForm(popupEdit, (item) => {
     .finally(() => {
       editProfile.renderLoading(false);
     })
-    editProfile.close();
+  editProfile.close();
 })
 
 //форма добавления карточки
@@ -159,7 +162,7 @@ const addCard = new PopupWithForm(popupAdd, (item) => {
     .finally(() => {
       addCard.renderLoading(false);
     })
-    addCard.close();
+  addCard.close();
 });
 
 //форма работы с аватаркой
@@ -176,7 +179,7 @@ const changeAvatar = new PopupWithForm(popupChangeAvatar, (item) => {
     .finally(() => {
       changeAvatar.renderLoading(false);
     })
-    changeAvatar.close();
+  changeAvatar.close();
 });
 
 //обработчики к новой карточке
