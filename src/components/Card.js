@@ -38,6 +38,8 @@ export default class Card {
 
     this._setEventListeners();
 
+    this._likes = [];
+
     this._cardImage.alt = this._name;
     this._cardImage.src = this._link;
     this._element.querySelector('.elements__card-heading').textContent = this._name;

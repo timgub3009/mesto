@@ -25,8 +25,11 @@ const api = new Api(
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, imageData]) => {
     userInfo.setUserInfo(userData);
+    userId = userData._id;
     cardsPack.renderAllItems(imageData);
   })
+
+  let userId;
 
 // включение валидации (универсальное)
 const formValidators = {};
@@ -112,7 +115,7 @@ const createCard = (item) => {
 
   cardTemplate,
 
-  userInfo.getId()
+  userId
 
   );
   return card.generateCard();
@@ -148,8 +151,7 @@ const addCard = new PopupWithForm(popupAdd, (item) => {
   api
     .addCard(item)
     .then((item) => {
-      const imageData = { name: item.name, link: item.link, id: item._id, owner: item.owner._id, likes: [] };
-      cardsPack.addItem(imageData);
+      cardsPack.addItem(item);
     })
     .catch((err) => {
       console.log(err);
