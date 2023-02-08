@@ -42,13 +42,13 @@ export default class FormValidator {
   };
 
   //метод для замены статуса кнопки
-  _toggleButtonState(inputs, submitButtonElement) {
-    if (inputs.some((input) => !input.validity.valid)) {
-      submitButtonElement.classList.add(this._inactiveButtonClass);
-      submitButtonElement.setAttribute('disabled', true);
+  _toggleButtonState() {
+    if (this._inputs.some((input) => !input.validity.valid)) {
+      this._submitButtonElement.classList.add(this._inactiveButtonClass);
+      this._submitButtonElement.setAttribute('disabled', true);
     } else {
-      submitButtonElement.classList.remove(this._inactiveButtonClass);
-      submitButtonElement.removeAttribute('disabled');
+      this._submitButtonElement.classList.remove(this._inactiveButtonClass);
+      this._submitButtonElement.removeAttribute('disabled');
     }
   };
 

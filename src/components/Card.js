@@ -43,6 +43,8 @@ export default class Card {
     this._cardImage.src = this._link;
     this._element.querySelector('.elements__card-heading').textContent = this._name;
 
+    this._likeCounter = this._element.querySelector('.elements__like-counter');
+
     this.removeDeleteButton();
 
     this.countLikes();
@@ -61,7 +63,6 @@ export default class Card {
   //обновление полученных данных по лайкам
   updateCount(updatedData) {
     this._likes = updatedData.likes;
-    this._likeCounter = this._element.querySelector('.elements__like-counter');
     this._likeCounter.textContent = this._likes.length;
   }
 

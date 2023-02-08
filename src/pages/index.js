@@ -23,47 +23,12 @@ const api = new Api(
   }
 )
 
-//первоначальная прогрузка
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, imageData]) => {
-    userInfo.setUserInfo(userData);
-    userId = userData._id;
-    cardsPack.renderAllItems(imageData);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-
-//переменная, чтобы потом передать ее в новую карточку
-let userId;
-
-// включение валидации (универсальное)
-const formValidators = {};
-
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector))
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement);
-    const formName = formElement.getAttribute('name');
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
-
-enableValidation(validationConfig);
-
-//создание класса увеличения карточки по клику
-const popupWithImage = new PopupWithImage(popupZoomImage);
-
-//слушатели к классу увеличения карточки по клику
-popupWithImage.setEventListeners();
-
-//создание класса подтверждения удаления карточки
-const popupWithConfirmation = new PopupWithConfirmation(popupConfirmRemoval);
-
-//слушатели к нему
-popupWithConfirmation.setEventListeners();
+//профиль пользователя
+const userInfo = new UserInfo({
+  name: profileName,
+  about: profileJob,
+  avatar: profileAvatar
+});
 
 //создание экземпляра Section
 const cardsPack = new Section((item) => createCard(item), cardsContainer);
@@ -128,12 +93,49 @@ const createCard = (item) => {
   return card.generateCard();
 }
 
-//профиль пользователя
-const userInfo = new UserInfo({
-  name: profileName,
-  about: profileJob,
-  avatar: profileAvatar
-});
+
+//первоначальная прогрузка
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, imageData]) => {
+    userInfo.setUserInfo(userData);
+    userId = userData._id;
+    cardsPack.renderAllItems(imageData);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+
+//переменная, чтобы потом передать ее в новую карточку
+let userId;
+
+// включение валидации (универсальное)
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);
+
+//создание класса увеличения карточки по клику
+const popupWithImage = new PopupWithImage(popupZoomImage);
+
+//слушатели к классу увеличения карточки по клику
+popupWithImage.setEventListeners();
+
+//создание класса подтверждения удаления карточки
+const popupWithConfirmation = new PopupWithConfirmation(popupConfirmRemoval);
+
+//слушатели к нему
+popupWithConfirmation.setEventListeners();
+
 
 //форма редактирования профиля пользователя
 const editProfile = new PopupWithForm(popupEdit, (item) => {
