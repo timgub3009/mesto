@@ -54,7 +54,7 @@ export default class FormValidator {
 
   //рисет на форму и кнопку
   resetValidation() {
-    this._toggleButtonState(this._inputs, this._submitButtonElement);
+    this._toggleButtonState();
 
     this._inputs.forEach((input) => {
       this._hideError(input);
@@ -66,9 +66,9 @@ export default class FormValidator {
     this._inputs.forEach((input) => {
       input.addEventListener('input', () => {
         this._checkValidity(input);
-        this._toggleButtonState(this._inputs, this._submitButtonElement);
+        this._toggleButtonState();
       });
     });
-    this._toggleButtonState(this._inputs, this._submitButtonElement);
+    this._toggleButtonState();
   };
 }

@@ -30,6 +30,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     userId = userData._id;
     cardsPack.renderAllItems(imageData);
   })
+  .catch((err) => {
+    console.log(err);
+  });
+
 
 //переменная, чтобы потом передать ее в новую карточку
 let userId;
@@ -138,6 +142,7 @@ const editProfile = new PopupWithForm(popupEdit, (item) => {
     .editProfile(item)
     .then((userData) => {
       userInfo.setUserInfo(userData);
+      editProfile.close();
     })
     .catch((err) => {
       console.log(err);
@@ -145,7 +150,6 @@ const editProfile = new PopupWithForm(popupEdit, (item) => {
     .finally(() => {
       editProfile.renderLoading(false);
     })
-  editProfile.close();
 })
 
 //форма добавления карточки
@@ -155,6 +159,7 @@ const addCard = new PopupWithForm(popupAdd, (item) => {
     .addCard(item)
     .then((item) => {
       cardsPack.addItem(item);
+      addCard.close();
     })
     .catch((err) => {
       console.log(err);
@@ -162,7 +167,6 @@ const addCard = new PopupWithForm(popupAdd, (item) => {
     .finally(() => {
       addCard.renderLoading(false);
     })
-  addCard.close();
 });
 
 //форма работы с аватаркой
@@ -172,6 +176,7 @@ const changeAvatar = new PopupWithForm(popupChangeAvatar, (item) => {
     .changeAvatar(item)
     .then((userData) => {
       userInfo.setUserAvatar(userData);
+      changeAvatar.close();
     })
     .catch((err) => {
       console.log(err);
@@ -179,7 +184,6 @@ const changeAvatar = new PopupWithForm(popupChangeAvatar, (item) => {
     .finally(() => {
       changeAvatar.renderLoading(false);
     })
-  changeAvatar.close();
 });
 
 //обработчики к новой карточке

@@ -29,7 +29,8 @@ export default class Card {
 
   //удаление карточки
   sendToTrash() {
-    this._element.closest('.elements__card').remove();
+    this._element.remove();
+    this._element = null;
   }
 
   //создание карточки
@@ -37,8 +38,6 @@ export default class Card {
     this._element = this._getTemplate();
 
     this._setEventListeners();
-
-    this._likes = [];
 
     this._cardImage.alt = this._name;
     this._cardImage.src = this._link;
@@ -62,18 +61,20 @@ export default class Card {
   //обновление полученных данных по лайкам
   updateCount(updatedData) {
     this._likes = updatedData.likes;
-    this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
+    this._likeCounter = this._element.querySelector('.elements__like-counter');
+    this._likeCounter.textContent = this._likes.length;
   }
 
   //закрашивание лайка и счетчик
   countLikes() {
+
+    this._likeCounter.textContent = this._likes.length;
+
     if (this.hasLike()) {
       this._likeButton.classList.add('elements__like-button_type_active');
-      this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
     }
     else {
       this._likeButton.classList.remove('elements__like-button_type_active');
-      this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
     }
   }
 
